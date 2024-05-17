@@ -1,4 +1,4 @@
-import SystemSideBarLink from '../../../components/SystemSideBarLink';
+import SystemSideBarLink from '../../../components/system/SystemSideBarLink';
 
 const SideBarLinks = ({ selectedLink }) => {
   return (

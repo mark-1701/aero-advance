@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { updateData } from '../../../data/users';
-import GenericUserImage from '../../../assets/generic_user.webp';
+import { updateData } from '../../../../../data/users';
+import GenericUserImage from '../../../../../assets/generic_user.webp';
 
 function UpdateUserForm({ roles, selectedUser }) {
   const [selectedRole, setSelectedRole] = useState(undefined);

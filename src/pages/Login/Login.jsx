@@ -1,7 +1,6 @@
 import React from 'react';
-
-import NavBar from '../../components/NavBar';
-import Footer from '../../components/Footer';
+import NavBar from '../../components/layouts/NavBar';
+import Footer from '../../components/layouts/Footer';
 import LoginForm from './components/LoginForm';
 import BackgroundImage from '../../assets/airport_2.jpg';
 

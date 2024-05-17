@@ -1,4 +1,4 @@
-import { deleteData } from '../../../data/users';
+import { deleteData } from '../../../../../data/users';
 
 const UserTable = ({ data, setSelectedUser, toggleUpdateUserModalState }) => {
   const deleteUser = async id => {

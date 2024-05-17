@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import App from './App.jsx';
 import Login from './pages/Login/Login.jsx';
-import SystemLayout from './components/SystemLayout.jsx';
-import Users from './pages/Administration/Users.jsx';
+import Users from './pages/Administration/pages/Users/Users.jsx';
 import SideBarLinks from './pages/Administration/components/SideBarLinks.jsx';
+import AdministrationLayout from './pages/Administration/AdministrationLayout.jsx';
 import './index.css';
+import Tickets from './pages/Administration/pages/Tickets/Tickets.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,20 +31,18 @@ const router = createBrowserRouter([
           {
             path: 'users',
             element: (
-              <SystemLayout
-              title={'Sistema de Administracion'}
-              sideBarLinks={<SideBarLinks selectedLink={'usuarios'} />}
-              module={<Users />}
+              <AdministrationLayout
+                sideBarLinks={<SideBarLinks selectedLink={'usuarios'} />}
+                module={<Users />}
               />
             )
           },
           {
             path: 'checklist',
             element: (
-              <SystemLayout
-              title={'Sistema de Tickets'}
-              sideBarLinks={<SideBarLinks selectedLink={'tickets'} />}
-              module={<Users />}
+              <AdministrationLayout
+                sideBarLinks={<SideBarLinks selectedLink={'tickets'} />}
+                module={<Tickets />}
               />
             )
           }

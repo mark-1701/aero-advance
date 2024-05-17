@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import UserTable from './components/UserTable';
-import Modal from '../../components/Modal';
+import Modal from '../../../../components/common/Modal';
 import CreateUserForm from './components/CreateUserForm';
 import UpdateUserForm from './components/UpdateUserForm';
-import { getData } from '../../data/users';
+import { getData } from '../../../../data/users';
 
 const Users = () => {
   // hooks
@@ -14,8 +14,14 @@ const Users = () => {
   const [roles, setRoles] = useState([]);
 
   // funciones y useEffects
-  const toggleCreateUserModalState = () => createUserModalState ? setCreateUserModalState(false) : setCreateUserModalState(true);
-  const toggleUpdateUserModalState = () => updateUserModalState ? setUpdateUserModalState(false) : setUpdateUserModalState(true);
+  const toggleCreateUserModalState = () =>
+    createUserModalState
+      ? setCreateUserModalState(false)
+      : setCreateUserModalState(true);
+  const toggleUpdateUserModalState = () =>
+    updateUserModalState
+      ? setUpdateUserModalState(false)
+      : setUpdateUserModalState(true);
 
   useEffect(() => {
     const fetchData = async () => {

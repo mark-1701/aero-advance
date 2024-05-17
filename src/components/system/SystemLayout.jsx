@@ -9,8 +9,12 @@ function SystemLayout({ title, sideBarLinks, module }) {
     localStorage.setItem('menuBtn', menuBtn);
   }, [menuBtn]);
   return (
-    <div className="">
-      <SystemNavBar title={title} menuBtn={menuBtn} setMenuBtn={setMenuBtn} />
+    <>
+      <SystemNavBar
+        title={'Sistema Administración'}
+        menuBtn={menuBtn}
+        setMenuBtn={setMenuBtn}
+      />
       <div className="h-[calc(100vh_-_5rem)] flex">
         <SystemSideBar menuBtn={menuBtn} sideBarLinks={sideBarLinks} />
         {/* aumenta un marginleft de 14 por el espacio del sidemenu */}
@@ -18,7 +22,7 @@ function SystemLayout({ title, sideBarLinks, module }) {
           {module}
         </main>
       </div>
-    </div>
+    </>
   );
 }
 
