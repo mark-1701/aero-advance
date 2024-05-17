@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.section {
+  @apply px-8 pb-8 sm:px-14 sm:pb-14;
+}
+
+.title {
+  @apply mb-4 text-lg font-bold text-gray-700 sm:text-2xl;
+}
+
+.link {
+  @apply no-underline text-black;
+}
+
+.btn {
+  @apply  p-1 px-4 rounded shadow bg-blue-500 text-white hover:bg-blue-400;
+}
+
+.label {
+  @apply mb-4 block;
+}
+
+.input {
+  @apply w-full h-8 p-2 rounded border-2 border-gray-200 hover:border-blue-500 focus:border-blue-600 !outline-none;
+}
+
+.table {
+  @apply w-full border-collapse;
+}
+
+.table th, .table td, .table tr {
+  @apply border p-1 text-center cursor-pointer hover:bg-gray-50;
+}
+
+.modal {
+  @apply flex justify-center items-center fixed top-0 left-0 w-full h-full p-8 transition-all opacity-100 bg-neutral-800 bg-opacity-50;
+}
+
+
+/* .table tbody tr:nth-child(even) {
+  @apply bg-gray-50;
+} */
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+@media (max-width: 639px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
