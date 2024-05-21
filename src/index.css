@@ -15,8 +15,9 @@
 }
 
 .btn {
-  @apply  p-1 px-4 rounded shadow bg-blue-500 text-white hover:bg-blue-400;
+  @apply p-1 px-4 rounded shadow bg-blue-500 text-white hover:bg-blue-400;
 }
+
 
 .label {
   @apply mb-4 block;
@@ -30,21 +31,32 @@
   @apply w-full border-collapse;
 }
 
-.table th, .table td, .table tr {
-  @apply border p-1 text-center cursor-pointer hover:bg-gray-50;
+.table thead {
+  @apply bg-slate-100;
+}
+
+.table tr {
+  @apply hover:bg-gray-50;
+}
+
+.table th, td {
+  @apply border p-2 overflow-hidden text-center cursor-pointer;
+}
+
+.columns-4 tr {
+  @apply grid grid-cols-5;
 }
 
 .modal {
   @apply flex justify-center items-center fixed top-0 left-0 w-full h-full p-8 transition-all opacity-100 bg-neutral-800 bg-opacity-50;
 }
 
-
 /* .table tbody tr:nth-child(even) {
   @apply bg-gray-50;
 } */
 
 .material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
 }
 
 @media (max-width: 639px) {

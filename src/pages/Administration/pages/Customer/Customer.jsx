@@ -1,28 +1,29 @@
 import { useState, useEffect } from 'react';
-import UserTable from './components/UserTable';
 import Modal from '../../../../components/common/Modal';
-import ViewUserForm from './components/ViewUserForm';
-import CreateUserForm from './components/CreateUserForm';
-import UpdateUserForm from './components/UpdateUserForm';
+import CustomerTable from './components/CustomerTable';
 import { getData } from '../../../../data/api';
+import ViewCustomerForm from './components/ViewCustomerForm';
+import CreateCustomerForm from './components/CreateCustomerForm';
+import UpdateCustomerForm from './components/UpdateCustomerForm';
 
-const Users = () => {
-  // hooks
+const Customer = () => {
   const [data, setData] = useState([]);
+  const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [viewModalState, setViewModalState] = useState(false);
   const [createModalState, setCreateModalState] = useState(false);
   const [updateModalState, setUpdateModalState] = useState(false);
   const [selectedElement, setSelectedElement] = useState({});
 
-  // funciones y useEffects
   useEffect(() => {
     const fetchData = async () => {
-      const [userData, roleData] = await Promise.all([
-        getData('user'),
+      const [customerData, userData, roleData] = await Promise.all([
+        getData('customer'),
+        getData('user/not-customers-or-employees'),
         getData('role')
       ]);
-      setData(userData);
+      setData(customerData);
+      setUsers(userData);
       setRoles(roleData);
     };
     fetchData();
@@ -36,37 +37,35 @@ const Users = () => {
     viewModalState ? setViewModalState(false) : setViewModalState(true);
 
   return (
-    <div>
-      <h1 className="title">Tabla Usuarios</h1>
+    <>
+      <h1 className="title">Clientes</h1>
       <button
         className="btn mb-4"
         onClick={() => {
           toggleCreateModalState();
         }}
       >
-        Crear Usuario
+        Crear Clientes
       </button>
-      {/* se pasa el switch para la ventada del Update Modal */}
-      <UserTable
+      <CustomerTable
         data={data}
+        roles={roles}
         setSelectedElement={setSelectedElement}
         toggleViewModalState={toggleViewModalState}
         toggleUpdateModalState={toggleUpdateModalState}
       />
-
-      {/* Ventanas Modales */}
       <Modal
         modalState={createModalState}
         toggleModalState={toggleCreateModalState}
-        title={'Crear Usuario'}
-        form={<CreateUserForm roles={roles} />}
+        title={'Crear Cliente'}
+        form={<CreateCustomerForm users={users} />}
       />
       <Modal
         modalState={updateModalState}
         toggleModalState={toggleUpdateModalState}
-        title={'Actualizar Usuario'}
+        title={'Actualizar Cliente'}
         form={
-          <UpdateUserForm roles={roles} selectedElement={selectedElement} />
+          <UpdateCustomerForm roles={roles} selectedElement={selectedElement} />
         }
       />
       <Modal
@@ -74,15 +73,15 @@ const Users = () => {
         toggleModalState={toggleViewModalState}
         title={'Ver Usuario'}
         form={
-          <ViewUserForm
+          <ViewCustomerForm
             roles={roles}
             selectedElement={selectedElement}
             toggleModalState={toggleViewModalState}
           />
         }
       />
-    </div>
+    </>
   );
 };
 
-export default Users;
+export default Customer;

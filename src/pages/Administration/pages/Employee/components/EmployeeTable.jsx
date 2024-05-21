@@ -1,48 +1,43 @@
-import EditIcon from '../../../../../components/common/EditIcon';
-import DeleteIcon from '../../../../../components/common/DeleteIcon';
+import { useEffect } from 'react';
 import { deleteData } from '../../../../../data/api';
+import DeleteIcon from '../../../../../components/common/DeleteIcon';
+import EditIcon from '../../../../../components/common/EditIcon';
 import ViewIcon from '../../../../../components/common/ViewIcon';
 
-const UserTable = ({
+const EmployeeTable = ({
   data,
+  roles,
   setSelectedElement,
   toggleViewModalState,
   toggleUpdateModalState
 }) => {
-  const deleteUser = async id => {
-    const response = await deleteData('user', id);
+  const deleteEmployee = async id => {
+    const response = await deleteData('employee', id);
     window.location.reload();
   };
-
   return (
     <table className="table columns-4">
       <thead>
         <tr>
           <th>id</th>
-          <th>Nombre</th>
-          <th>Username</th>
-          <th>Correo</th>
-          {/* 
-          <th>role</th>
-          <th>state</th> */}
+          <th>name</th>
+          <th>username</th>
+          <th>email</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {data.map(user => (
-          <tr key={user?.id}>
-            <td>{user?.id}</td>
-            <td>{user?.name}</td>
-            <td>{user?.username}</td>
-            <td>{user?.email}</td>
-            {/* 
-            <td>{user?.role?.name}</td>
-            <td>{user?.state}</td> */}
+        {data.map(employee => (
+          <tr key={employee?.id}>
+            <td>{employee?.id}</td>
+            <td>{employee?.user?.name}</td>
+            <td>{employee?.user?.username}</td>
+            <td>{employee?.user?.email}</td>
             <td className="flex justify-center items-center gap-2">
               <button
                 className=""
                 onClick={e => {
-                  setSelectedElement(user);
+                  setSelectedElement(employee);
                   toggleViewModalState();
                 }}
               >
@@ -51,7 +46,7 @@ const UserTable = ({
               <button
                 className=""
                 onClick={e => {
-                  setSelectedElement(user);
+                  setSelectedElement(employee);
                   toggleUpdateModalState();
                 }}
               >
@@ -62,11 +57,11 @@ const UserTable = ({
                 onSubmit={e => {
                   e.preventDefault();
                   if (confirm('¿Estas seguro de eliminar este registro?')) {
-                    deleteUser(user.id);
+                    deleteEmployee(employee.id);
                   }
                 }}
               >
-                <button type="submit" className="">
+                <button type="submit" className="0">
                   <DeleteIcon />
                 </button>
               </form>
@@ -78,4 +73,4 @@ const UserTable = ({
   );
 };
 
-export default UserTable;
+export default EmployeeTable;

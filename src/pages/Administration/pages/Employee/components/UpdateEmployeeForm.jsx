@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
-import { updateData } from '../../../../../data/api';
-// import GenericUserImage from '../../../../../assets/image_not_found.jpg';
 import GenericUserImage from '../../../../../assets/image_not_found.jpg';
+import { showData, updateData } from '../../../../../data/api';
 
-function UpdateUserForm({ roles, selectedElement }) {
+const UpdateEmployeeForm = ({ roles, selectedElement }) => {
+  const [employee, setEmployee] = useState(undefined);
   const [selectedRole, setSelectedRole] = useState(undefined);
   const [selectedState, setSelectedState] = useState(undefined);
 
   useEffect(() => {
-    setSelectedRole(selectedElement?.role?.id);
-    setSelectedState(selectedElement?.state);
+    const fetchData = async () => {
+      const response = await showData('user', selectedElement?.user?.id);
+      setEmployee(response);
+    };
+    fetchData();
   }, [selectedElement]);
-  
+  useEffect(() => {
+    setSelectedRole(employee?.role?.id);
+    setSelectedState(employee?.state);
+  }, [employee]);
+
   const updateUser = async e => {
     const formData = new FormData(e.target);
     const id = formData.get('id');
@@ -33,8 +40,8 @@ function UpdateUserForm({ roles, selectedElement }) {
       <div>
         <img
           src={`${
-            selectedElement.profile_picture_uri
-              ? `http://127.0.0.1:8000/storage/images/${selectedElement?.profile_picture_uri}`
+            employee?.profile_picture_uri
+              ? `http://127.0.0.1:8000/storage/images/${employee?.profile_picture_uri}`
               : GenericUserImage
           }`}
           alt="Imágen no disponible"
@@ -50,7 +57,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           id="id"
           name="id"
           className="input"
-          defaultValue={selectedElement?.id}
+          defaultValue={employee?.id}
           readOnly
           required
         />
@@ -64,7 +71,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           id="name"
           name="name"
           className="input"
-          defaultValue={selectedElement?.name}
+          defaultValue={employee?.name}
           required
         />
       </div>
@@ -77,7 +84,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           id="username"
           name="username"
           className="input"
-          defaultValue={selectedElement?.username}
+          defaultValue={employee?.username}
           required
         />
       </div>
@@ -90,7 +97,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           id="email"
           name="email"
           className="input"
-          defaultValue={selectedElement?.email}
+          defaultValue={employee?.email}
           required
         />
       </div>
@@ -103,7 +110,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           id="password"
           name="password"
           className="input"
-          defaultValue={selectedElement?.password}
+          defaultValue={employee?.password}
           required
         />
       </div>
@@ -154,6 +161,6 @@ function UpdateUserForm({ roles, selectedElement }) {
       </div>
     </form>
   );
-}
+};
 
-export default UpdateUserForm;
+export default UpdateEmployeeForm;

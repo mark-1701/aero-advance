@@ -1,46 +1,30 @@
 import { useState, useEffect } from 'react';
 import Modal from '../../../../components/common/Modal';
-import TicketTable from './components/TicketTable';
-import CreateTicketForm from './components/CreateTicketForm';
-import UpdateTicketForm from './components/UpdateTicketForm';
+import EmployeeTable from './components/EmployeeTable';
+import ViewEmployeeForm from './components/ViewEmployeeForm';
+import CreateEmployeeForm from './components/CreateEmployeeForm';
+import UpdateEmployeeForm from './components/UpdateEmployeeForm';
 import { getData } from '../../../../data/api';
-import ViewTicketForm from './components/ViewTicketForm';
 
-const Tickets = () => {
+const Employee = () => {
   const [data, setData] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
   const [viewModalState, setViewModalState] = useState(false);
   const [createModalState, setCreateModalState] = useState(false);
   const [updateModalState, setUpdateModalState] = useState(false);
-  const [customers, setCustomers] = useState([]);
-  const [priorities, setPriorities] = useState([]);
-  const [ticketStates, setTicketStates] = useState([]);
-  const [types, setTypes] = useState([]);
-  const [departments, setDepartments] = useState([]);
   const [selectedElement, setSelectedElement] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      const [
-        ticketData,
-        customersData,
-        prioritiesData,
-        ticketStatesData,
-        typesData,
-        departmentsData
-      ] = await Promise.all([
-        getData('ticket'),
-        getData('customer'),
-        getData('priority'),
-        getData('ticket-state'),
-        getData('type'),
-        getData('department')
+      const [employeeData, userData, roleData] = await Promise.all([
+        getData('employee'),
+        getData('user/not-customers-or-employees'),
+        getData('role')
       ]);
-      setData(ticketData);
-      setCustomers(customersData);
-      setDepartments(departmentsData);
-      setPriorities(prioritiesData);
-      setTicketStates(ticketStatesData);
-      setTypes(typesData);
+      setData(employeeData);
+      setRoles(roleData);
+      setUsers(userData);
     };
     fetchData();
   }, []);
@@ -54,17 +38,18 @@ const Tickets = () => {
 
   return (
     <>
-      <h1 className="title">Tabla Tickets</h1>
+      <h1 className="title">Tabla Empleados</h1>
       <button
         className="btn mb-4"
         onClick={() => {
           toggleCreateModalState();
         }}
       >
-        Crear Ticket
+        Crear Empleado
       </button>
-      <TicketTable
+      <EmployeeTable
         data={data}
+        roles={roles}
         setSelectedElement={setSelectedElement}
         toggleViewModalState={toggleViewModalState}
         toggleUpdateModalState={toggleUpdateModalState}
@@ -72,28 +57,21 @@ const Tickets = () => {
       <Modal
         modalState={createModalState}
         toggleModalState={toggleCreateModalState}
-        title={'Crear Ticket'}
-        form={
-          <CreateTicketForm
-            customers={customers}
-            priorities={priorities}
-            ticketStates={ticketStates}
-            types={types}
-            departments={departments}
-          />
-        }
+        title={'Crear Empleado'}
+        form={<CreateEmployeeForm users={users} />}
       />
       <Modal
         modalState={updateModalState}
         toggleModalState={toggleUpdateModalState}
-        title={'Actualizar Ticket'}
+        title={'Actualizar Empleado'}
         form={
-          <UpdateTicketForm
-            customers={customers}
-            priorities={priorities}
-            types={types}
-            departments={departments}
-            ticketStates={ticketStates}
+          <UpdateEmployeeForm
+            // users={users}
+            // priorities={priorities}
+            // types={types}
+            // departments={departments}
+            // ticketStates={ticketStates}
+            roles={roles}
             selectedElement={selectedElement}
           />
         }
@@ -101,10 +79,10 @@ const Tickets = () => {
       <Modal
         modalState={viewModalState}
         toggleModalState={toggleViewModalState}
-        title={'Ver Ticket'}
+        title={'Ver Usuario'}
         form={
-          <ViewTicketForm
-            customers={customers}
+          <ViewEmployeeForm
+            roles={roles}
             selectedElement={selectedElement}
             toggleModalState={toggleViewModalState}
           />
@@ -114,4 +92,4 @@ const Tickets = () => {
   );
 };
 
-export default Tickets;
+export default Employee;

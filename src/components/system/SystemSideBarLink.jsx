@@ -16,6 +16,7 @@ const SystemSideBarLink = ({ link, icon, linkTitle, selectedLink }) => {
   return (
     <li>
       <Link
+        title={linkTitle}
         to={link}
         className={`flex items-center gap-3 text-white hover:bg-indigo-500 ${
           selectedLink.toLowerCase() == linkTitle.toLowerCase() &&

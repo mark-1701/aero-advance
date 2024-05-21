@@ -1,25 +1,6 @@
-import { useState, useEffect } from 'react';
-import { updateData } from '../../../../../data/api';
-// import GenericUserImage from '../../../../../assets/image_not_found.jpg';
 import GenericUserImage from '../../../../../assets/image_not_found.jpg';
 
-function UpdateUserForm({ roles, selectedElement }) {
-  const [selectedRole, setSelectedRole] = useState(undefined);
-  const [selectedState, setSelectedState] = useState(undefined);
-
-  useEffect(() => {
-    setSelectedRole(selectedElement?.role?.id);
-    setSelectedState(selectedElement?.state);
-  }, [selectedElement]);
-  
-  const updateUser = async e => {
-    const formData = new FormData(e.target);
-    const id = formData.get('id');
-    formData.append('_method', 'put');
-    const response = await updateData('user', id, formData);
-    window.location.reload();
-  };
-
+const ViewUserForm = ({ roles, selectedElement, toggleModalState }) => {
   return (
     <form
       className="flex flex-col gap-8"
@@ -27,7 +8,7 @@ function UpdateUserForm({ roles, selectedElement }) {
       encType="multipart/form-data"
       onSubmit={e => {
         e.preventDefault();
-        updateUser(e);
+        toggleModalState();
       }}
     >
       <div>
@@ -65,6 +46,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           name="name"
           className="input"
           defaultValue={selectedElement?.name}
+          readOnly
           required
         />
       </div>
@@ -78,6 +60,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           name="username"
           className="input"
           defaultValue={selectedElement?.username}
+          readOnly
           required
         />
       </div>
@@ -91,6 +74,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           name="email"
           className="input"
           defaultValue={selectedElement?.email}
+          readOnly
           required
         />
       </div>
@@ -104,6 +88,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           name="password"
           className="input"
           defaultValue={selectedElement?.password}
+          readOnly
           required
         />
       </div>
@@ -114,22 +99,10 @@ function UpdateUserForm({ roles, selectedElement }) {
         <select
           id="role_id"
           name="role_id"
-          value={selectedRole}
-          onChange={e => setSelectedRole(e.target.value)}
           className="w-full h-8 rounded border-2 border-gray-200"
         >
-          {roles.map(role => (
-            <option key={role?.id} value={role?.id}>
-              {role?.name}
-            </option>
-          ))}
+          <option>{selectedElement?.role?.name}</option>
         </select>
-      </div>
-      <div>
-        <label htmlFor="file" className="label">
-          Foto de perfil:
-        </label>
-        <input type="file" id="file" name="file" className="" />
       </div>
       <div>
         <label htmlFor="state" className="label">
@@ -139,21 +112,18 @@ function UpdateUserForm({ roles, selectedElement }) {
           type="text"
           id="state"
           name="state"
-          value={selectedState}
-          onChange={e => setSelectedState(e.target.value)}
           className="w-full h-8 rounded border-2 border-gray-200"
         >
-          <option value={1}>Activo</option>
-          <option value={0}>Inactivo</option>
+          <option>{selectedElement?.state ? 'Activo' : 'Inactivo'}</option>
         </select>
       </div>
       <div>
         <button type="submit" className="btn w-full">
-          Actualizar
+          Cerrar
         </button>
       </div>
     </form>
   );
-}
+};
 
-export default UpdateUserForm;
+export default ViewUserForm;

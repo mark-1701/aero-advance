@@ -18,7 +18,7 @@ const AdministrationLayout = ({ sideBarLinks, module }) => {
       <div className="h-[calc(100vh_-_5rem)] flex">
         <SystemSideBar menuBtn={menuBtn} sideBarLinks={sideBarLinks} />
         {/* aumenta un marginleft de 14 por el espacio del sidemenu */}
-        <main className="w-full p-8 overflow-scroll max-sm:ml-14">
+        <main className="w-full p-8 overflow-auto max-sm:ml-14">
           {module}
         </main>
       </div>

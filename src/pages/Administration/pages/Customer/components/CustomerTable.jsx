@@ -1,48 +1,43 @@
-import EditIcon from '../../../../../components/common/EditIcon';
 import DeleteIcon from '../../../../../components/common/DeleteIcon';
-import { deleteData } from '../../../../../data/api';
+import EditIcon from '../../../../../components/common/EditIcon';
 import ViewIcon from '../../../../../components/common/ViewIcon';
+import { deleteData } from '../../../../../data/api';
 
-const UserTable = ({
+const CustomerTable = ({
   data,
+  roles,
   setSelectedElement,
   toggleViewModalState,
   toggleUpdateModalState
 }) => {
-  const deleteUser = async id => {
-    const response = await deleteData('user', id);
+  const deleteCustomer = async id => {
+    const response = await deleteData('customer', id);
     window.location.reload();
   };
-
   return (
     <table className="table columns-4">
       <thead>
         <tr>
           <th>id</th>
-          <th>Nombre</th>
-          <th>Username</th>
-          <th>Correo</th>
-          {/* 
-          <th>role</th>
-          <th>state</th> */}
+          <th>name</th>
+          <th>username</th>
+          <th>email</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        {data.map(user => (
-          <tr key={user?.id}>
-            <td>{user?.id}</td>
-            <td>{user?.name}</td>
-            <td>{user?.username}</td>
-            <td>{user?.email}</td>
-            {/* 
-            <td>{user?.role?.name}</td>
-            <td>{user?.state}</td> */}
-            <td className="flex justify-center items-center gap-2">
-              <button
+        {data.map(customer => (
+          <tr key={customer?.id}>
+            <td>{customer?.id}</td>
+            <td>{customer?.user?.name}</td>
+            <td>{customer?.user?.username}</td>
+            <td>{customer?.user?.email}</td>
+
+            <td className="flex justify-center items-center gap-1">
+            <button
                 className=""
                 onClick={e => {
-                  setSelectedElement(user);
+                  setSelectedElement(customer);
                   toggleViewModalState();
                 }}
               >
@@ -51,7 +46,7 @@ const UserTable = ({
               <button
                 className=""
                 onClick={e => {
-                  setSelectedElement(user);
+                  setSelectedElement(customer);
                   toggleUpdateModalState();
                 }}
               >
@@ -62,7 +57,7 @@ const UserTable = ({
                 onSubmit={e => {
                   e.preventDefault();
                   if (confirm('¿Estas seguro de eliminar este registro?')) {
-                    deleteUser(user.id);
+                    deleteCustomer(customer.id);
                   }
                 }}
               >
@@ -78,4 +73,4 @@ const UserTable = ({
   );
 };
 
-export default UserTable;
+export default CustomerTable;

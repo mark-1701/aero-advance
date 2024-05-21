@@ -1,4 +1,4 @@
-import { createData } from '../../../../../data/users';
+import { createData } from '../../../../../data/api';
 
 function CreateUserForm({ roles }) {
   const createUser = async e => {
@@ -14,8 +14,6 @@ function CreateUserForm({ roles }) {
     const resopnse = createData('user', formData);
     window.location.reload();
   };
-
-  // console.log(roles)
 
   return (
     <form
@@ -93,7 +91,7 @@ function CreateUserForm({ roles }) {
       </div>
       <div>
         <button type="submit" className="btn w-full">
-          Enviar
+          Crear
         </button>
       </div>
     </form>
