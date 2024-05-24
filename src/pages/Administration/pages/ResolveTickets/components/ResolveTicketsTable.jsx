@@ -1,16 +1,20 @@
-import DeleteIcon from '../../../../../components/common/DeleteIcon';
 import EditIcon from '../../../../../components/common/EditIcon';
+import RepairIcon from '../../../../../components/common/RepairIcon';
+import EscalationIcon from '../../../../../components/common/EscalationIcon';
 import ViewIcon from '../../../../../components/common/ViewIcon';
-import { deleteData } from '../../../../../data/api';
+import { createData } from '../../../../../data/api';
 
-const TicketTable = ({
+const ResolveTicketsTable = ({
   data,
   setSelectedElement,
   toggleViewModalState,
   toggleUpdateModalState
 }) => {
-  const deleteTicket = async id => {
-    const response = await deleteData('ticket', id);
+  const escalateTicket = async id => {
+    const formData = new FormData();
+    formData.append('ticket_id', id);
+    formData.append('original_user_id', '1');
+    const response = await createData('escalation', formData);
     window.location.reload();
   };
   return (
@@ -34,7 +38,7 @@ const TicketTable = ({
             <td>{ticket?.type?.name}</td>
             <td>{ticket?.ticket_state?.name}</td>
             <td className="flex justify-center items-center gap-2">
-            <button
+              <button
                 className=""
                 onClick={e => {
                   setSelectedElement(ticket);
@@ -50,19 +54,19 @@ const TicketTable = ({
                   toggleUpdateModalState();
                 }}
               >
-                <EditIcon />
+                <RepairIcon />
               </button>
               <form
                 action="post"
                 onSubmit={e => {
                   e.preventDefault();
-                  if (confirm('¿Estas seguro de eliminar este registro?')) {
-                    deleteTicket(ticket.id);
+                  if (confirm('¿Estas seguro de escalar este ticket?')) {
+                    escalateTicket(ticket.id);
                   }
                 }}
               >
                 <button type="submit" className="">
-                  <DeleteIcon />
+                  <EscalationIcon />
                 </button>
               </form>
             </td>
@@ -73,4 +77,4 @@ const TicketTable = ({
   );
 };
 
-export default TicketTable;
+export default ResolveTicketsTable;

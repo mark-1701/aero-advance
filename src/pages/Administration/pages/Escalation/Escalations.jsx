@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import Modal from '../../../../components/common/Modal';
-import TicketTable from './components/TicketTable';
-import CreateTicketForm from './components/CreateTicketForm';
-import UpdateTicketForm from './components/UpdateTicketForm';
-import { getData } from '../../../../data/api';
-import ViewTicketForm from './components/ViewTicketForm';
 import pLimit from 'p-limit';
+import { getData } from '../../../../data/api';
+import EscalationTable from './components/EscalationTable';
+import Modal from '../../../../components/common/Modal';
+import ViewEscalationTicketForm from './components/ViewEscalationTicketForm';
+import UpdateEscalationTicketForm from './components/UpdateEscalationTicketForm';
+import { GetUserSession } from '../../../../utils/GetUserSession';
 
 const limit = pLimit(1);
 
-const Tickets = () => {
+const Escalations = () => {
   const [data, setData] = useState([]);
   const [viewModalState, setViewModalState] = useState(false);
   const [createModalState, setCreateModalState] = useState(false);
@@ -24,7 +24,7 @@ const Tickets = () => {
   useEffect(() => {
     const fetchData = async () => {
       const endpoints = [
-        'ticket',
+        'ticket/escaled-tickets',
         'user',
         'priority',
         'ticket-state',
@@ -60,32 +60,22 @@ const Tickets = () => {
 
   return (
     <>
-      <h1 className="title">Tabla Tickets</h1>
-      <button
-        className="btn mb-4"
-        onClick={() => {
-          toggleCreateModalState();
-        }}
-      >
-        Crear Ticket
-      </button>
-      <TicketTable
+      <h1 className="title">Tabla Escalaciones</h1>
+      <EscalationTable
         data={data}
         setSelectedElement={setSelectedElement}
         toggleViewModalState={toggleViewModalState}
         toggleUpdateModalState={toggleUpdateModalState}
       />
       <Modal
-        modalState={createModalState}
-        toggleModalState={toggleCreateModalState}
-        title={'Crear Ticket'}
+        modalState={viewModalState}
+        toggleModalState={toggleViewModalState}
+        title={'Ver Ticket'}
         form={
-          <CreateTicketForm
+          <ViewEscalationTicketForm
             users={users}
-            priorities={priorities}
-            ticketStates={ticketStates}
-            types={types}
-            departments={departments}
+            selectedElement={selectedElement}
+            toggleModalState={toggleViewModalState}
           />
         }
       />
@@ -94,7 +84,7 @@ const Tickets = () => {
         toggleModalState={toggleUpdateModalState}
         title={'Actualizar Ticket'}
         form={
-          <UpdateTicketForm
+          <UpdateEscalationTicketForm
             users={users}
             priorities={priorities}
             types={types}
@@ -104,20 +94,8 @@ const Tickets = () => {
           />
         }
       />
-      <Modal
-        modalState={viewModalState}
-        toggleModalState={toggleViewModalState}
-        title={'Ver Ticket'}
-        form={
-          <ViewTicketForm
-            users={users}
-            selectedElement={selectedElement}
-            toggleModalState={toggleViewModalState}
-          />
-        }
-      />
     </>
   );
 };
 
-export default Tickets;
+export default Escalations;

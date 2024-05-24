@@ -5,6 +5,9 @@ import ViewUserForm from './components/ViewUserForm';
 import CreateUserForm from './components/CreateUserForm';
 import UpdateUserForm from './components/UpdateUserForm';
 import { getData } from '../../../../data/api';
+import pLimit from 'p-limit';
+
+const limit = pLimit(1);
 
 const Users = () => {
   // hooks
@@ -18,10 +21,9 @@ const Users = () => {
   // funciones y useEffects
   useEffect(() => {
     const fetchData = async () => {
-      const [userData, roleData] = await Promise.all([
-        getData('user'),
-        getData('role')
-      ]);
+      const endpoints = ['user', 'role'];
+      const tasks = endpoints.map(endpoint => limit(() => getData(endpoint)));
+      const [userData, roleData] = await Promise.all(tasks);
       setData(userData);
       setRoles(roleData);
     };

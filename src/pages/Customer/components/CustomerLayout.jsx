@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import SystemNavBar from '../../components/system/SystemNavBar';
-import SystemSideBar from '../../components/system/SystemSideBar';
+import SystemNavBar from '../../../components/system/SystemNavBar';
+import SystemSideBar from '../../../components/system/SystemSideBar';
 
-const AdministrationLayout = ({ sideBarLinks, module }) => {
+const CustomerLayout = ({ sideBarLinks, module }) => {
   const initialMenuBtnState = localStorage.getItem('menuBtn') === 'true';
   const [menuBtn, setMenuBtn] = useState(initialMenuBtnState);
   useEffect(() => {
@@ -11,19 +11,17 @@ const AdministrationLayout = ({ sideBarLinks, module }) => {
   return (
     <>
       <SystemNavBar
-        title={'Sistema Administración'}
+        title={'Sistema Clientes'}
         menuBtn={menuBtn}
         setMenuBtn={setMenuBtn}
       />
       <div className="h-[calc(100vh_-_5rem)] flex">
         <SystemSideBar menuBtn={menuBtn} sideBarLinks={sideBarLinks} />
         {/* aumenta un marginleft de 14 por el espacio del sidemenu */}
-        <main className="w-full p-8 overflow-auto max-sm:ml-14">
-          {module}
-        </main>
+        <main className="w-full p-8 overflow-auto max-sm:ml-14">{module}</main>
       </div>
     </>
   );
 };
 
-export default AdministrationLayout;
+export default CustomerLayout;

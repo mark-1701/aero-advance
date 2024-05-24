@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ImageNotFound from '../../../../../assets/image_not_found.jpg';
 import { updateData } from '../../../../../data/api';
 
-const UpdateTicketForm = ({
+const UpdateEscalationTicketForm = ({
   users,
   priorities,
   ticketStates,
@@ -93,7 +93,7 @@ const UpdateTicketForm = ({
           type="text"
           id="ticket_state_id"
           name="ticket_state_id"
-          className="select"
+          className="select resolve-input"
           value={selectedTicketState}
           onChange={e => setSelectedTicketState(e.target.value)}
         >
@@ -176,7 +176,7 @@ const UpdateTicketForm = ({
           type="text"
           id="resolution"
           name="resolution"
-          className="input !h-32"
+          className="input !h-32 resolve-input"
           defaultValue={selectedElement?.resolution}
           required
         />
@@ -205,4 +205,4 @@ const UpdateTicketForm = ({
   );
 };
 
-export default UpdateTicketForm;
+export default UpdateEscalationTicketForm;

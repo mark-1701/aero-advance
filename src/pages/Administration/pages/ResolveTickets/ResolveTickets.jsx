@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import Modal from '../../../../components/common/Modal';
-import TicketTable from './components/TicketTable';
-import CreateTicketForm from './components/CreateTicketForm';
-import UpdateTicketForm from './components/UpdateTicketForm';
 import { getData } from '../../../../data/api';
-import ViewTicketForm from './components/ViewTicketForm';
+import ResolveTicketsTable from './components/ResolveTicketsTable';
+import ViewResolveTicketForm from './components/ViewResolveTicketForm';
+import ResolveTicketForm from './components/ResolveTicketForm';
 import pLimit from 'p-limit';
+import { GetUserSession } from '../../../../utils/GetUserSession';
 
 const limit = pLimit(1);
 
-const Tickets = () => {
+const ResolveTickets = () => {
   const [data, setData] = useState([]);
   const [viewModalState, setViewModalState] = useState(false);
   const [createModalState, setCreateModalState] = useState(false);
@@ -24,7 +24,7 @@ const Tickets = () => {
   useEffect(() => {
     const fetchData = async () => {
       const endpoints = [
-        'ticket',
+        `ticket/unescalated-assigned-tickets/${GetUserSession().id}`,
         'user',
         'priority',
         'ticket-state',
@@ -32,7 +32,6 @@ const Tickets = () => {
         'department'
       ];
       const tasks = endpoints.map(endpoint => limit(() => getData(endpoint)));
-
       const [
         ticketData,
         usersData,
@@ -41,6 +40,7 @@ const Tickets = () => {
         typesData,
         departmentsData
       ] = await Promise.all(tasks);
+
       setData(ticketData);
       setUsers(usersData);
       setPriorities(prioritiesData);
@@ -60,32 +60,22 @@ const Tickets = () => {
 
   return (
     <>
-      <h1 className="title">Tabla Tickets</h1>
-      <button
-        className="btn mb-4"
-        onClick={() => {
-          toggleCreateModalState();
-        }}
-      >
-        Crear Ticket
-      </button>
-      <TicketTable
+      <h1 className="title">Resolver Tickets</h1>
+      <ResolveTicketsTable
         data={data}
         setSelectedElement={setSelectedElement}
         toggleViewModalState={toggleViewModalState}
         toggleUpdateModalState={toggleUpdateModalState}
       />
       <Modal
-        modalState={createModalState}
-        toggleModalState={toggleCreateModalState}
-        title={'Crear Ticket'}
+        modalState={viewModalState}
+        toggleModalState={toggleViewModalState}
+        title={'Ver Ticket'}
         form={
-          <CreateTicketForm
+          <ViewResolveTicketForm
             users={users}
-            priorities={priorities}
-            ticketStates={ticketStates}
-            types={types}
-            departments={departments}
+            selectedElement={selectedElement}
+            toggleModalState={toggleViewModalState}
           />
         }
       />
@@ -94,7 +84,7 @@ const Tickets = () => {
         toggleModalState={toggleUpdateModalState}
         title={'Actualizar Ticket'}
         form={
-          <UpdateTicketForm
+          <ResolveTicketForm
             users={users}
             priorities={priorities}
             types={types}
@@ -104,20 +94,8 @@ const Tickets = () => {
           />
         }
       />
-      <Modal
-        modalState={viewModalState}
-        toggleModalState={toggleViewModalState}
-        title={'Ver Ticket'}
-        form={
-          <ViewTicketForm
-            users={users}
-            selectedElement={selectedElement}
-            toggleModalState={toggleViewModalState}
-          />
-        }
-      />
     </>
   );
 };
 
-export default Tickets;
+export default ResolveTickets;

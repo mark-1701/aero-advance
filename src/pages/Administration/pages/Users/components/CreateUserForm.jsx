@@ -11,7 +11,7 @@ function CreateUserForm({ roles }) {
     // formData.append('role_id', e.target.role_id.value);
     const formData = new FormData(e.target);
     console.log(formData.get('role_id'));
-    const resopnse = createData('user', formData);
+    const response = await createData('user', formData);
     window.location.reload();
   };
 
@@ -74,7 +74,7 @@ function CreateUserForm({ roles }) {
         <select
           name="role_id"
           id="role_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           {roles.map(role => (
             <option key={role.id} value={role.id}>

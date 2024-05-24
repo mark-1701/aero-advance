@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import Modal from '../../../../components/common/Modal';
-import TicketTable from './components/TicketTable';
-import CreateTicketForm from './components/CreateTicketForm';
-import UpdateTicketForm from './components/UpdateTicketForm';
 import { getData } from '../../../../data/api';
-import ViewTicketForm from './components/ViewTicketForm';
+import AvailableTicketsTable from './components/AvailableTicketsTable';
+import PreviewAvailableTicketForm from './components/PreviewAvailableTicketForm';
 import pLimit from 'p-limit';
 
 const limit = pLimit(1);
 
-const Tickets = () => {
+const AvailableTickets = () => {
   const [data, setData] = useState([]);
   const [viewModalState, setViewModalState] = useState(false);
   const [createModalState, setCreateModalState] = useState(false);
@@ -24,7 +22,7 @@ const Tickets = () => {
   useEffect(() => {
     const fetchData = async () => {
       const endpoints = [
-        'ticket',
+        'ticket/available-tickets',
         'user',
         'priority',
         'ticket-state',
@@ -41,6 +39,7 @@ const Tickets = () => {
         typesData,
         departmentsData
       ] = await Promise.all(tasks);
+
       setData(ticketData);
       setUsers(usersData);
       setPriorities(prioritiesData);
@@ -60,56 +59,19 @@ const Tickets = () => {
 
   return (
     <>
-      <h1 className="title">Tabla Tickets</h1>
-      <button
-        className="btn mb-4"
-        onClick={() => {
-          toggleCreateModalState();
-        }}
-      >
-        Crear Ticket
-      </button>
-      <TicketTable
+      <h1 className="title">Tickets Disponibles</h1>
+      <AvailableTicketsTable
         data={data}
         setSelectedElement={setSelectedElement}
         toggleViewModalState={toggleViewModalState}
         toggleUpdateModalState={toggleUpdateModalState}
       />
       <Modal
-        modalState={createModalState}
-        toggleModalState={toggleCreateModalState}
-        title={'Crear Ticket'}
-        form={
-          <CreateTicketForm
-            users={users}
-            priorities={priorities}
-            ticketStates={ticketStates}
-            types={types}
-            departments={departments}
-          />
-        }
-      />
-      <Modal
-        modalState={updateModalState}
-        toggleModalState={toggleUpdateModalState}
-        title={'Actualizar Ticket'}
-        form={
-          <UpdateTicketForm
-            users={users}
-            priorities={priorities}
-            types={types}
-            departments={departments}
-            ticketStates={ticketStates}
-            selectedElement={selectedElement}
-          />
-        }
-      />
-      <Modal
         modalState={viewModalState}
         toggleModalState={toggleViewModalState}
-        title={'Ver Ticket'}
+        title={'Revisar Ticket'}
         form={
-          <ViewTicketForm
+          <PreviewAvailableTicketForm
             users={users}
             selectedElement={selectedElement}
             toggleModalState={toggleViewModalState}
@@ -120,4 +82,4 @@ const Tickets = () => {
   );
 };
 
-export default Tickets;
+export default AvailableTickets;

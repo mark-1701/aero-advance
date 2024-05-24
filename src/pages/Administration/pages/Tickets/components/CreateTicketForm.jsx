@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createData } from '../../../../../data/api';
 const CreateTicketForm = ({
-  customers,
+  users,
   priorities,
   ticketStates,
   types,
@@ -9,8 +9,7 @@ const CreateTicketForm = ({
 }) => {
   const createTicket = async e => {
     const formData = new FormData(e.target);
-    const response = createData('ticket', formData);
-    console.log(response);
+    const response = await createData('ticket', formData);
     window.location.reload();
   };
   return (
@@ -24,18 +23,18 @@ const CreateTicketForm = ({
       }}
     >
       <div>
-        <label htmlFor="customer_id" className="label">
-          Id de Cliente:
+        <label htmlFor="user_id" className="label">
+          Id de Usuario:
         </label>
         <select
           type="text"
-          id="customer_id"
-          name="customer_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          id="user_id"
+          name="user_id"
+          className="select"
         >
-          {customers.map(customer => (
-            <option key={customer?.id} value={customer?.id}>
-              {`${customer?.id} - ${customer?.user?.name}`}
+          {users.map(user => (
+            <option key={user?.id} value={user?.id}>
+              {`${user?.id} - ${user?.name}`}
             </option>
           ))}
         </select>
@@ -48,7 +47,7 @@ const CreateTicketForm = ({
           type="text"
           id="priority_id"
           name="priority_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           {priorities.map(priorities => (
             <option key={priorities?.id} value={priorities?.id}>
@@ -65,7 +64,7 @@ const CreateTicketForm = ({
           type="text"
           id="ticket_state_id"
           name="ticket_state_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           {ticketStates.map(ticketState => (
             <option key={ticketState?.id} value={ticketState?.id}>
@@ -82,7 +81,7 @@ const CreateTicketForm = ({
           type="text"
           id="type_id"
           name="type_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           {types.map(type => (
             <option key={type?.id} value={type?.id}>
@@ -99,7 +98,7 @@ const CreateTicketForm = ({
           type="text"
           id="department_id"
           name="department_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           {departments.map(department => (
             <option key={department?.id} value={department?.id}>

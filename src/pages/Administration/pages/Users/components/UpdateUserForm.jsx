@@ -116,7 +116,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           name="role_id"
           value={selectedRole}
           onChange={e => setSelectedRole(e.target.value)}
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           {roles.map(role => (
             <option key={role?.id} value={role?.id}>
@@ -141,7 +141,7 @@ function UpdateUserForm({ roles, selectedElement }) {
           name="state"
           value={selectedState}
           onChange={e => setSelectedState(e.target.value)}
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           <option value={1}>Activo</option>
           <option value={0}>Inactivo</option>

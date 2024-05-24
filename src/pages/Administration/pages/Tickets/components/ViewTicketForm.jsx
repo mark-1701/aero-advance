@@ -1,7 +1,7 @@
 import ImageNotFound from '../../../../../assets/image_not_found.jpg';
 
 const ViewTicketForm = ({
-  customers,
+  users,
   selectedElement,
   toggleModalState
 }) => {
@@ -26,21 +26,20 @@ const ViewTicketForm = ({
           className="input"
           defaultValue={selectedElement?.id}
           readOnly
-          required
         />
       </div>
       <div>
-        <label htmlFor="customer_id" className="label">
-          Id de Cliente:
+        <label htmlFor="user_id" className="label">
+          Id de Usuario:
         </label>
         <select
           type="text"
-          id="customer_id"
-          name="customer_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          id="user_id"
+          name="user_id"
+          className="select"
         >
-          <option>{`${selectedElement?.customer_id} - ${
-            customers.find(el => el.id === selectedElement?.customer_id)?.user?.name}`}</option>
+          <option>{`${selectedElement?.id} - ${
+            users.find(el => el.id === selectedElement?.id)?.name}`}</option>
         </select>
       </div>
       <div>
@@ -51,7 +50,7 @@ const ViewTicketForm = ({
           type="text"
           id="priority_id"
           name="priority_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           <option>{selectedElement?.priority?.name}</option>
         </select>
@@ -64,7 +63,7 @@ const ViewTicketForm = ({
           type="text"
           id="ticket_state_id"
           name="ticket_state_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           <option>{selectedElement?.ticket_state?.name}</option>
         </select>
@@ -77,7 +76,7 @@ const ViewTicketForm = ({
           type="text"
           id="type_id"
           name="type_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           <option>{selectedElement?.type?.name}</option>
         </select>
@@ -90,7 +89,7 @@ const ViewTicketForm = ({
           type="text"
           id="department_id"
           name="department_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           <option>{selectedElement?.department?.name}</option>
         </select>
@@ -105,7 +104,7 @@ const ViewTicketForm = ({
           name="subject"
           className="input"
           defaultValue={selectedElement?.subject}
-          required
+          readOnly
         />
       </div>
       <div>
@@ -118,7 +117,7 @@ const ViewTicketForm = ({
           name="description"
           className="input !h-32"
           defaultValue={selectedElement?.description}
-          required
+          readOnly
         />
       </div>
       <div>
@@ -131,7 +130,7 @@ const ViewTicketForm = ({
           name="resolution"
           className="input !h-32"
           defaultValue={selectedElement?.resolution}
-          required
+          readOnly
         />
       </div>
       <div>

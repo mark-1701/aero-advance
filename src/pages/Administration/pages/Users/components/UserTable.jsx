@@ -15,15 +15,15 @@ const UserTable = ({
   };
 
   return (
-    <table className="table columns-4">
+    <table className="table columns-5">
       <thead>
         <tr>
           <th>id</th>
           <th>Nombre</th>
           <th>Username</th>
           <th>Correo</th>
-          {/* 
           <th>role</th>
+          {/* 
           <th>state</th> */}
           <th>Actions</th>
         </tr>
@@ -35,8 +35,8 @@ const UserTable = ({
             <td>{user?.name}</td>
             <td>{user?.username}</td>
             <td>{user?.email}</td>
-            {/* 
             <td>{user?.role?.name}</td>
+            {/* 
             <td>{user?.state}</td> */}
             <td className="flex justify-center items-center gap-2">
               <button

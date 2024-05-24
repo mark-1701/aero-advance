@@ -1,43 +1,39 @@
 import DeleteIcon from '../../../../../components/common/DeleteIcon';
 import EditIcon from '../../../../../components/common/EditIcon';
+import RepairIcon from '../../../../../components/common/RepairIcon';
 import ViewIcon from '../../../../../components/common/ViewIcon';
-import { deleteData } from '../../../../../data/api';
 
-const CustomerTable = ({
+const EscalationTable = ({
   data,
-  roles,
   setSelectedElement,
   toggleViewModalState,
   toggleUpdateModalState
 }) => {
-  const deleteCustomer = async id => {
-    const response = await deleteData('customer', id);
-    window.location.reload();
-  };
   return (
-    <table className="table columns-4">
+    <table className="table columns-5">
       <thead>
         <tr>
           <th>id</th>
-          <th>name</th>
-          <th>username</th>
-          <th>email</th>
-          <th>Actions</th>
+          <th>Asunto</th>
+          <th>Prioridad</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        {data.map(customer => (
-          <tr key={customer?.id}>
-            <td>{customer?.id}</td>
-            <td>{customer?.user?.name}</td>
-            <td>{customer?.user?.username}</td>
-            <td>{customer?.user?.email}</td>
-
-            <td className="flex justify-center items-center gap-1">
-            <button
+        {data.map(ticket => (
+          <tr key={ticket?.id}>
+            <td>{ticket?.id}</td>
+            <td>{ticket?.subject}</td>
+            <td>{ticket?.priority?.name}</td>
+            <td>{ticket?.type?.name}</td>
+            <td>{ticket?.ticket_state?.name}</td>
+            <td className="flex justify-center items-center gap-2">
+              <button
                 className=""
                 onClick={e => {
-                  setSelectedElement(customer);
+                  setSelectedElement(ticket);
                   toggleViewModalState();
                 }}
               >
@@ -46,18 +42,18 @@ const CustomerTable = ({
               <button
                 className=""
                 onClick={e => {
-                  setSelectedElement(customer);
+                  setSelectedElement(ticket);
                   toggleUpdateModalState();
                 }}
               >
-                <EditIcon />
+                <RepairIcon />
               </button>
               <form
                 action="post"
                 onSubmit={e => {
                   e.preventDefault();
-                  if (confirm('¿Estas seguro de eliminar este registro?')) {
-                    deleteCustomer(customer.id);
+                  if (confirm('Aún no es posible elimianr escalaciones')) {
+                    // deleteTicket(ticket.id);
                   }
                 }}
               >
@@ -73,4 +69,4 @@ const CustomerTable = ({
   );
 };
 
-export default CustomerTable;
+export default EscalationTable;

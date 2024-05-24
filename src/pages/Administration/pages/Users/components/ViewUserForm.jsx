@@ -99,7 +99,7 @@ const ViewUserForm = ({ roles, selectedElement, toggleModalState }) => {
         <select
           id="role_id"
           name="role_id"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           <option>{selectedElement?.role?.name}</option>
         </select>
@@ -112,7 +112,7 @@ const ViewUserForm = ({ roles, selectedElement, toggleModalState }) => {
           type="text"
           id="state"
           name="state"
-          className="w-full h-8 rounded border-2 border-gray-200"
+          className="select"
         >
           <option>{selectedElement?.state ? 'Activo' : 'Inactivo'}</option>
         </select>

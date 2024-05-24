@@ -1,9 +1,9 @@
 import DeleteIcon from '../../../../../components/common/DeleteIcon';
 import EditIcon from '../../../../../components/common/EditIcon';
-import ViewIcon from '../../../../../components/common/ViewIcon';
+import PreviewIcon from '../../../../../components/common/PreviewIcon';
 import { deleteData } from '../../../../../data/api';
 
-const TicketTable = ({
+const AvailableTicketsTable = ({
   data,
   setSelectedElement,
   toggleViewModalState,
@@ -34,37 +34,15 @@ const TicketTable = ({
             <td>{ticket?.type?.name}</td>
             <td>{ticket?.ticket_state?.name}</td>
             <td className="flex justify-center items-center gap-2">
-            <button
+              <button
                 className=""
                 onClick={e => {
                   setSelectedElement(ticket);
                   toggleViewModalState();
                 }}
               >
-                <ViewIcon />
+                <PreviewIcon />
               </button>
-              <button
-                className=""
-                onClick={e => {
-                  setSelectedElement(ticket);
-                  toggleUpdateModalState();
-                }}
-              >
-                <EditIcon />
-              </button>
-              <form
-                action="post"
-                onSubmit={e => {
-                  e.preventDefault();
-                  if (confirm('¿Estas seguro de eliminar este registro?')) {
-                    deleteTicket(ticket.id);
-                  }
-                }}
-              >
-                <button type="submit" className="">
-                  <DeleteIcon />
-                </button>
-              </form>
             </td>
           </tr>
         ))}
@@ -73,4 +51,4 @@ const TicketTable = ({
   );
 };
 
-export default TicketTable;
+export default AvailableTicketsTable;

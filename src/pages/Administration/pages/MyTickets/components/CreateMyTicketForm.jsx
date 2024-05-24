@@ -1,28 +1,18 @@
-import { useState, useEffect } from 'react';
-import ImageNotFound from '../../../../../assets/image_not_found.jpg';
-import { updateData } from '../../../../../data/api';
-
-const UpdateTicketForm = ({
+import { createData } from '../../../../../data/api';
+const CrateMyTicketForm = ({
   users,
   priorities,
   ticketStates,
   types,
-  departments,
-  selectedElement
+  departments
 }) => {
-  const [selectedUsers, setSelectedUsers] = useState(undefined);
-  const [selectedPrioritie, setSelectedPrioritie] = useState(undefined);
-  const [selectedTicketState, setSelectedTicketState] = useState(undefined);
-  const [selectedType, setSelectedType] = useState(undefined);
-  const [selectedDepartment, setSelectedDepartment] = useState(undefined);
-  const updateTicket = async e => {
+  const createTicket = async e => {
     const formData = new FormData(e.target);
-    const id = formData.get('id');
-    formData.append('_method', 'put');
-    const response = await updateData('ticket', id, formData);
+    const response = await createData('ticket', formData);
     console.log(response);
     window.location.reload();
   };
+
   return (
     <form
       className="flex flex-col gap-8"
@@ -30,35 +20,14 @@ const UpdateTicketForm = ({
       encType="multipart/form-data"
       onSubmit={e => {
         e.preventDefault();
-        updateTicket(e);
+        createTicket(e);
       }}
     >
-      <div>
-        <label htmlFor="id" className="label">
-          Id:
-        </label>
-        <input
-          type="text"
-          id="id"
-          name="id"
-          className="input"
-          defaultValue={selectedElement?.id}
-          readOnly
-          required
-        />
-      </div>
       <div>
         <label htmlFor="user_id" className="label">
           Id de Usuario:
         </label>
-        <select
-          type="text"
-          id="user_id"
-          name="user_id"
-          className="select"
-          value={selectedUsers}
-          onChange={e => setSelectedUsers(e.target.value)}
-        >
+        <select type="text" id="user_id" name="user_id" className="select">
           {users.map(user => (
             <option key={user?.id} value={user?.id}>
               {`${user?.id} - ${user?.name}`}
@@ -75,8 +44,6 @@ const UpdateTicketForm = ({
           id="priority_id"
           name="priority_id"
           className="select"
-          value={selectedPrioritie}
-          onChange={e => setSelectedPrioritie(e.target.value)}
         >
           {priorities.map(priorities => (
             <option key={priorities?.id} value={priorities?.id}>
@@ -93,9 +60,8 @@ const UpdateTicketForm = ({
           type="text"
           id="ticket_state_id"
           name="ticket_state_id"
-          className="select"
-          value={selectedTicketState}
-          onChange={e => setSelectedTicketState(e.target.value)}
+          className="select disabled"
+          disabled
         >
           {ticketStates.map(ticketState => (
             <option key={ticketState?.id} value={ticketState?.id}>
@@ -108,14 +74,7 @@ const UpdateTicketForm = ({
         <label htmlFor="type_id" className="label">
           Tipo:
         </label>
-        <select
-          type="text"
-          id="type_id"
-          name="type_id"
-          className="select"
-          value={selectedType}
-          onChange={e => setSelectedType(e.target.value)}
-        >
+        <select type="text" id="type_id" name="type_id" className="select">
           {types.map(type => (
             <option key={type?.id} value={type?.id}>
               {type?.name}
@@ -132,8 +91,6 @@ const UpdateTicketForm = ({
           id="department_id"
           name="department_id"
           className="select"
-          value={selectedDepartment}
-          onChange={e => setSelectedDepartment(e.target.value)}
         >
           {departments.map(department => (
             <option key={department?.id} value={department?.id}>
@@ -151,7 +108,6 @@ const UpdateTicketForm = ({
           id="subject"
           name="subject"
           className="input"
-          defaultValue={selectedElement?.subject}
           required
         />
       </div>
@@ -164,7 +120,6 @@ const UpdateTicketForm = ({
           id="description"
           name="description"
           className="input !h-32"
-          defaultValue={selectedElement?.description}
           required
         />
       </div>
@@ -176,33 +131,23 @@ const UpdateTicketForm = ({
           type="text"
           id="resolution"
           name="resolution"
-          className="input !h-32"
-          defaultValue={selectedElement?.resolution}
-          required
+          className="input disabled !h-32"
+          disabled
         />
       </div>
       <div>
         <label htmlFor="resolution" className="label">
-          Imagen:
+          Fotografía del problema:
         </label>
-        <img
-          src={`${
-            selectedElement?.image_uri
-              ? `http://127.0.0.1:8000/storage/images/${selectedElement?.image_uri}`
-              : ImageNotFound
-          }`}
-          alt="Imágen no disponible"
-          className="block w-full h-72 mx-auto object-contain rounded-lg bg-gray-100"
-        />
-        <input type="file" id="file" name="file" className="mt-4" />
+        <input type="file" id="file" name="file" className="" />
       </div>
       <div>
         <button type="submit" className="btn w-full">
-          Actualizar
+          Crear
         </button>
       </div>
     </form>
   );
 };
 
-export default UpdateTicketForm;
+export default CrateMyTicketForm;

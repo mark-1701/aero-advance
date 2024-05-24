@@ -18,13 +18,24 @@
   @apply p-1 px-4 rounded shadow bg-blue-500 text-white hover:bg-blue-400;
 }
 
-
 .label {
   @apply mb-4 block;
 }
 
+.select {
+  @apply w-full h-8 p-1 rounded border-2 bg-white;
+}
+
+.resolve-input {
+  @apply bg-green-50;
+}
+
 .input {
   @apply w-full h-8 p-2 rounded border-2 border-gray-200 hover:border-blue-500 focus:border-blue-600 !outline-none;
+}
+
+.disabled {
+  @apply bg-gray-100;
 }
 
 .table {
@@ -39,12 +50,17 @@
   @apply hover:bg-gray-50;
 }
 
-.table th, td {
+.table th,
+td {
   @apply border p-2 overflow-hidden text-center cursor-pointer;
 }
 
 .columns-4 tr {
   @apply grid grid-cols-5;
+}
+
+.columns-5 tr {
+  @apply grid grid-cols-6;
 }
 
 .modal {

@@ -1,28 +1,6 @@
-import { useState, useEffect } from 'react';
 import ImageNotFound from '../../../../../assets/image_not_found.jpg';
-import { updateData } from '../../../../../data/api';
 
-const UpdateTicketForm = ({
-  users,
-  priorities,
-  ticketStates,
-  types,
-  departments,
-  selectedElement
-}) => {
-  const [selectedUsers, setSelectedUsers] = useState(undefined);
-  const [selectedPrioritie, setSelectedPrioritie] = useState(undefined);
-  const [selectedTicketState, setSelectedTicketState] = useState(undefined);
-  const [selectedType, setSelectedType] = useState(undefined);
-  const [selectedDepartment, setSelectedDepartment] = useState(undefined);
-  const updateTicket = async e => {
-    const formData = new FormData(e.target);
-    const id = formData.get('id');
-    formData.append('_method', 'put');
-    const response = await updateData('ticket', id, formData);
-    console.log(response);
-    window.location.reload();
-  };
+const ViewResolveTicketForm = ({ users, selectedElement, toggleModalState }) => {
   return (
     <form
       className="flex flex-col gap-8"
@@ -30,7 +8,7 @@ const UpdateTicketForm = ({
       encType="multipart/form-data"
       onSubmit={e => {
         e.preventDefault();
-        updateTicket(e);
+        toggleModalState();
       }}
     >
       <div>
@@ -44,7 +22,6 @@ const UpdateTicketForm = ({
           className="input"
           defaultValue={selectedElement?.id}
           readOnly
-          required
         />
       </div>
       <div>
@@ -56,14 +33,10 @@ const UpdateTicketForm = ({
           id="user_id"
           name="user_id"
           className="select"
-          value={selectedUsers}
-          onChange={e => setSelectedUsers(e.target.value)}
         >
-          {users.map(user => (
-            <option key={user?.id} value={user?.id}>
-              {`${user?.id} - ${user?.name}`}
-            </option>
-          ))}
+          <option>{`${selectedElement?.id} - ${
+            users.find(el => el.id === selectedElement?.id)?.name
+          }`}</option>
         </select>
       </div>
       <div>
@@ -75,14 +48,8 @@ const UpdateTicketForm = ({
           id="priority_id"
           name="priority_id"
           className="select"
-          value={selectedPrioritie}
-          onChange={e => setSelectedPrioritie(e.target.value)}
         >
-          {priorities.map(priorities => (
-            <option key={priorities?.id} value={priorities?.id}>
-              {priorities?.name}
-            </option>
-          ))}
+          <option>{selectedElement?.priority?.name}</option>
         </select>
       </div>
       <div>
@@ -93,15 +60,9 @@ const UpdateTicketForm = ({
           type="text"
           id="ticket_state_id"
           name="ticket_state_id"
-          className="select"
-          value={selectedTicketState}
-          onChange={e => setSelectedTicketState(e.target.value)}
+          className="select disabled"
         >
-          {ticketStates.map(ticketState => (
-            <option key={ticketState?.id} value={ticketState?.id}>
-              {ticketState?.name}
-            </option>
-          ))}
+          <option>{selectedElement?.ticket_state?.name}</option>
         </select>
       </div>
       <div>
@@ -113,14 +74,8 @@ const UpdateTicketForm = ({
           id="type_id"
           name="type_id"
           className="select"
-          value={selectedType}
-          onChange={e => setSelectedType(e.target.value)}
         >
-          {types.map(type => (
-            <option key={type?.id} value={type?.id}>
-              {type?.name}
-            </option>
-          ))}
+          <option>{selectedElement?.type?.name}</option>
         </select>
       </div>
       <div>
@@ -132,14 +87,8 @@ const UpdateTicketForm = ({
           id="department_id"
           name="department_id"
           className="select"
-          value={selectedDepartment}
-          onChange={e => setSelectedDepartment(e.target.value)}
         >
-          {departments.map(department => (
-            <option key={department?.id} value={department?.id}>
-              {department?.name}
-            </option>
-          ))}
+          <option>{selectedElement?.department?.name}</option>
         </select>
       </div>
       <div>
@@ -152,7 +101,6 @@ const UpdateTicketForm = ({
           name="subject"
           className="input"
           defaultValue={selectedElement?.subject}
-          required
         />
       </div>
       <div>
@@ -165,7 +113,7 @@ const UpdateTicketForm = ({
           name="description"
           className="input !h-32"
           defaultValue={selectedElement?.description}
-          required
+          readOnly
         />
       </div>
       <div>
@@ -176,9 +124,9 @@ const UpdateTicketForm = ({
           type="text"
           id="resolution"
           name="resolution"
-          className="input !h-32"
+          className="input !h-32 disabled"
           defaultValue={selectedElement?.resolution}
-          required
+          readOnly
         />
       </div>
       <div>
@@ -194,15 +142,14 @@ const UpdateTicketForm = ({
           alt="Imágen no disponible"
           className="block w-full h-72 mx-auto object-contain rounded-lg bg-gray-100"
         />
-        <input type="file" id="file" name="file" className="mt-4" />
       </div>
       <div>
         <button type="submit" className="btn w-full">
-          Actualizar
+          Cerrar
         </button>
       </div>
     </form>
   );
 };
 
-export default UpdateTicketForm;
+export default ViewResolveTicketForm;
