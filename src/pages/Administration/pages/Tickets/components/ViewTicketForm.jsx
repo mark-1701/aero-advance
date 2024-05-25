@@ -1,10 +1,6 @@
 import ImageNotFound from '../../../../../assets/image_not_found.jpg';
 
-const ViewTicketForm = ({
-  users,
-  selectedElement,
-  toggleModalState
-}) => {
+const ViewTicketForm = ({ users, selectedElement, toggleModalState }) => {
   return (
     <form
       className="flex flex-col gap-8"
@@ -32,14 +28,8 @@ const ViewTicketForm = ({
         <label htmlFor="user_id" className="label">
           Id de Usuario:
         </label>
-        <select
-          type="text"
-          id="user_id"
-          name="user_id"
-          className="select"
-        >
-          <option>{`${selectedElement?.id} - ${
-            users.find(el => el.id === selectedElement?.id)?.name}`}</option>
+        <select type="text" id="user_id" name="user_id" className="select">
+          <option>{`${selectedElement?.user?.id} - ${selectedElement?.user?.name}`}</option>
         </select>
       </div>
       <div>
@@ -63,7 +53,7 @@ const ViewTicketForm = ({
           type="text"
           id="ticket_state_id"
           name="ticket_state_id"
-          className="select"
+          className="select disabled"
         >
           <option>{selectedElement?.ticket_state?.name}</option>
         </select>
@@ -72,12 +62,7 @@ const ViewTicketForm = ({
         <label htmlFor="type_id" className="label">
           Tipo:
         </label>
-        <select
-          type="text"
-          id="type_id"
-          name="type_id"
-          className="select"
-        >
+        <select type="text" id="type_id" name="type_id" className="select">
           <option>{selectedElement?.type?.name}</option>
         </select>
       </div>
@@ -128,7 +113,7 @@ const ViewTicketForm = ({
           type="text"
           id="resolution"
           name="resolution"
-          className="input !h-32"
+          className="input !h-32 disabled"
           defaultValue={selectedElement?.resolution}
           readOnly
         />

@@ -59,11 +59,10 @@ const UpdateEscalationTicketForm = ({
           value={selectedUsers}
           onChange={e => setSelectedUsers(e.target.value)}
         >
-          {users.map(user => (
-            <option key={user?.id} value={user?.id}>
-              {`${user?.id} - ${user?.name}`}
-            </option>
-          ))}
+          <option
+            key={selectedElement?.user?.id}
+            value={selectedElement?.user?.id}
+          >{`${selectedElement?.user?.id} - ${selectedElement?.user?.name}`}</option>
         </select>
       </div>
       <div>

@@ -32,14 +32,8 @@ const ViewEscalationTicketForm = ({
         <label htmlFor="user_id" className="label">
           Id de Usuario:
         </label>
-        <select
-          type="text"
-          id="user_id"
-          name="user_id"
-          className="select"
-        >
-          <option>{`${selectedElement?.id} - ${
-            users.find(el => el.id === selectedElement?.id)?.name}`}</option>
+        <select type="text" id="user_id" name="user_id" className="select">
+          <option>{`${selectedElement?.user?.id} - ${selectedElement?.user?.name}`}</option>
         </select>
       </div>
       <div>
@@ -72,12 +66,7 @@ const ViewEscalationTicketForm = ({
         <label htmlFor="type_id" className="label">
           Tipo:
         </label>
-        <select
-          type="text"
-          id="type_id"
-          name="type_id"
-          className="select"
-        >
+        <select type="text" id="type_id" name="type_id" className="select">
           <option>{selectedElement?.type?.name}</option>
         </select>
       </div>
@@ -153,7 +142,7 @@ const ViewEscalationTicketForm = ({
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default ViewEscalationTicketForm
+export default ViewEscalationTicketForm;

@@ -59,11 +59,10 @@ const UpdateTicketForm = ({
           value={selectedUsers}
           onChange={e => setSelectedUsers(e.target.value)}
         >
-          {users.map(user => (
-            <option key={user?.id} value={user?.id}>
-              {`${user?.id} - ${user?.name}`}
-            </option>
-          ))}
+          <option
+            key={selectedElement?.user?.id}
+            value={selectedElement?.user?.id}
+          >{`${selectedElement?.user?.id} - ${selectedElement?.user?.name}`}</option>
         </select>
       </div>
       <div>
@@ -93,7 +92,7 @@ const UpdateTicketForm = ({
           type="text"
           id="ticket_state_id"
           name="ticket_state_id"
-          className="select"
+          className="select disabled"
           value={selectedTicketState}
           onChange={e => setSelectedTicketState(e.target.value)}
         >
@@ -176,7 +175,7 @@ const UpdateTicketForm = ({
           type="text"
           id="resolution"
           name="resolution"
-          className="input !h-32"
+          className="input !h-32 disabled"
           defaultValue={selectedElement?.resolution}
           required
         />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation, Link, Navigate, useNavigate } from 'react-router-dom';
 
-const Logout = ({ link, icon, linkTitle, selectedLink }) => {
+const SystemLogout = ({ link, icon, linkTitle, selectedLink }) => {
   const navigate = useNavigate();
   return (
     <li>
@@ -25,4 +25,4 @@ const Logout = ({ link, icon, linkTitle, selectedLink }) => {
   );
 };
 
-export default Logout;
+export default SystemLogout;

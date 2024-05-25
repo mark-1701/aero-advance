@@ -1,4 +1,4 @@
-import Logout from '../../../components/system/Logout';
+import SystemLogout from '../../../components/system/SystemLogout';
 import SystemSideBarLink from '../../../components/system/SystemSideBarLink';
 
 const AdministrationSideBarLinks = ({ selectedLink }) => {
@@ -12,7 +12,7 @@ const AdministrationSideBarLinks = ({ selectedLink }) => {
       <SystemSideBarLink link={'/administration/escalations'} icon={'trending_up'} linkTitle={'Escalaciones'} selectedLink={selectedLink} />
       <SystemSideBarLink link={'/administration/users'} icon={'group'} linkTitle={'Usuarios'} selectedLink={selectedLink} />
       <SystemSideBarLink link={'/administration/settings'} icon={'settings'} linkTitle={'Configuraciones'} selectedLink={selectedLink} />
-      <Logout icon={'logout'} linkTitle={'Salir'} selectedLink={selectedLink} />
+      <SystemLogout icon={'logout'} linkTitle={'Salir'} selectedLink={selectedLink} />
     </>
   );
 };
